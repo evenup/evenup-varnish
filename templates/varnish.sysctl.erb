@@ -1,0 +1,37 @@
+# Managed by puppet - Do not modify!
+
+# Maximum number of open files (for ulimit -n)
+NFILES=131072
+
+# Locked shared memory (for ulimit -l)
+# Default log size is 82MB + header
+MEMLOCK=82000
+
+# Set this to 1 to make init script reload try to switch vcl without restart.
+# To make this work, you need to set the following variables
+# explicit: VARNISH_VCL_CONF, VARNISH_ADMIN_LISTEN_ADDRESS,
+# VARNISH_ADMIN_LISTEN_PORT, VARNISH_SECRET_FILE
+RELOAD_VCL=1
+
+VARNISH_VCL_CONF=/etc/varnish/varnish.vcl
+VARNISH_LISTEN_ADDRESS=<%= scope.lookupvar('listen_address') %>
+VARNISH_LISTEN_PORT=<%= scope.lookupvar('listen_port') %>
+VARNISH_ADMIN_LISTEN_ADDRESS=<%= scope.lookupvar('admin_listen_address') %>
+VARNISH_ADMIN_LISTEN_PORT=<%= scope.lookupvar('admin_listen_port') %>
+VARNISH_SECRET_FILE=<%= scope.lookupvar('secret_file') %>
+VARNISH_MIN_THREADS=<%= scope.lookupvar('min_threads') %>
+VARNISH_MAX_THREADS=<%= scope.lookupvar('max_threads') %>
+VARNISH_THREAD_TIMEOUT=<%= scope.lookupvar('thread_timeout') %>
+VARNISH_STORAGE_SIZE=<%= scope.lookupvar('storage_size') %>
+VARNISH_STORAGE="malloc,${VARNISH_STORAGE_SIZE}"
+VARNISH_TTL=<%= scope.lookupvar('ttl') %>
+
+DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
+             -f ${VARNISH_VCL_CONF} \
+             -T ${VARNISH_ADMIN_LISTEN_ADDRESS}:${VARNISH_ADMIN_LISTEN_PORT} \
+             -t ${VARNISH_TTL} \
+             -w ${VARNISH_MIN_THREADS},${VARNISH_MAX_THREADS},${VARNISH_THREAD_TIMEOUT} \
+             -u varnish -g varnish \
+             -S ${VARNISH_SECRET_FILE} \
+             -s ${VARNISH_STORAGE}"
+
