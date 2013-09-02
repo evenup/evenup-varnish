@@ -48,9 +48,7 @@ sub vcl_recv {
     unset req.http.cookie;
     unset req.http.cache-control;
   }
-
 }
-
 
 sub vcl_pipe {
   # Note that only the first request to the backend will have
@@ -62,7 +60,6 @@ sub vcl_pipe {
   set bereq.http.connection = "close";
   return(pipe);
 }
-
 
 # NOTE: vcl_fetch is called after a document has been successfully retrieved
 # from the backend. Normal tasks her are to alter the response headers, trigger
@@ -89,13 +86,10 @@ sub vcl_deliver {
     set resp.http.X-Varnish-Cache = "MISS";
   }
 
-
   remove resp.http.X-Varnish;
   remove resp.http.Via;
   remove resp.http.X-Powered-By;
   remove resp.http.Pragma;
   #remove resp.http.Age;
   #remove resp.http.Cache-Control;
-
 }
-
