@@ -1,0 +1,34 @@
+# Managed by puppet - Do not modify!
+
+# Configuration file for varnish
+#
+# /etc/init.d/varnish expects the variables $DAEMON_OPTS, $NFILES and $MEMLOCK
+# to be set from this shell script fragment.
+#
+
+# Should we start varnishd at boot?  Set to "no" to disable.
+<% if scope.lookupvar('enable') then %>
+START=yes
+<% else %>
+START=no
+<% end %>
+
+# Maximum number of open files (for ulimit -n)
+NFILES=131072
+
+# Maximum locked memory size (for ulimit -l)
+# Used for locking the shared memory log in memory.  If you increase log size,
+# you need to increase this number as well
+MEMLOCK=82000
+
+# Listen on port <%= scope.lookupvar('listen_address') %>:<%= scope.lookupvar('listen_port') %>, administration on <%= scope.lookupvar('admin_listen_address') %>:<%= scope.lookupvar('admin_listen_port') %>, and forward to
+# one content server selected by the vcl file, based on the request.  Use a <%= scope.lookupvar('storage_size') %>GB
+# fixed-size cache.
+#
+DAEMON_OPTS="-a <%= scope.lookupvar('listen_address') %>:<%= scope.lookupvar('listen_port') %> \
+             -T <%= scope.lookupvar('admin_listen_address') %>:<%= scope.lookupvar('admin_listen_port') %> \
+             -t <%= scope.lookupvar('ttl') %> \
+             -f /etc/varnish/default.vcl \
+             -S <%= scope.lookupvar('secret_file') %> \
+             -s "malloc,<%= scope.lookupvar('storage_size') %>" \
+             -w <%= scope.lookupvar('min_threads') %>,<%= scope.lookupvar('max_threads') %>,<%= scope.lookupvar('thread_timeout') %>"
