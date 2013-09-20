@@ -40,7 +40,7 @@ class varnish::config (
     content => $vcl_content,
   }
 
-    case $operatingsystem {
+    case $::operatingsystem {
         debian:   { $use_sysctl = false }
         ubuntu:   { $use_sysctl = false }
         centos:   { $use_sysctl = true }
