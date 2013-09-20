@@ -40,12 +40,29 @@ class varnish::config (
     content => $vcl_content,
   }
 
-  file { '/etc/sysconfig/varnish':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0444',
-    content => template('varnish/varnish.sysctl.erb'),
-  }
+    case $::operatingsystem {
+        debian:   { $use_sysctl = false }
+        ubuntu:   { $use_sysctl = false }
+        centos:   { $use_sysctl = true }
+        redhat:   { $use_sysctl = true }
+        default:  { $use_sysctl = true }
+    }
 
+    if $use_sysctl {
+        file { '/etc/sysconfig/varnish':
+            ensure  => file,
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0444',
+            content => template('varnish/varnish.sysctl.erb'),
+        }
+    } else {
+        file { '/etc/default/varnish':
+            ensure  => file,
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0444',
+            content => template('varnish/varnish.default.erb'),
+        }
+    }
 }
