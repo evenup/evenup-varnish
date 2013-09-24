@@ -15,7 +15,14 @@ describe 'varnish::config', :type => :class do
     :ttl                  => 120,
   } }
 
-  it { should contain_file('/etc/varnish/varnish.vcl') }
-  it { should contain_file('/etc/sysconfig/varnish') }
+  context 'default' do
+    it { should contain_file('/etc/varnish/varnish.vcl') }
+    it { should contain_file('/etc/sysconfig/varnish') }
+  end
+
+  context 'debian-based' do
+    let(:facts) { { :operatingsystem => 'debian' } }
+    it { should contain_file('/etc/default/varnish') }
+  end
 
 end
