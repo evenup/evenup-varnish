@@ -41,11 +41,8 @@ class varnish::config (
   }
 
     case $::operatingsystem {
-        debian:   { $use_sysctl = false }
-        ubuntu:   { $use_sysctl = false }
-        centos:   { $use_sysctl = true }
-        redhat:   { $use_sysctl = true }
-        default:  { $use_sysctl = true }
+        'debian', 'ubuntu': { $use_sysctl = false }
+        default:            { $use_sysctl = true }
     }
 
     if $use_sysctl {
