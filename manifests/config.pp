@@ -14,7 +14,7 @@
 # Copyright 2013 EvenUp.
 #
 class varnish::config (
-  $vcl_content,
+  $vcl_source,
   $listen_address,
   $listen_port,
   $admin_listen_address,
@@ -37,7 +37,7 @@ class varnish::config (
     owner   => 'root',
     group   => 'root',
     mode    => '0444',
-    content => $vcl_content,
+    source  => $vcl_source,
   }
 
     case $::operatingsystem {
