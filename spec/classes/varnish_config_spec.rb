@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'varnish::config', :type => :class do
   let(:params) { {
     :listen_address       => '0.0.0.0',
-    :vcl_content          => 'a vcl goes here',
+    :vcl_source           => 'a vcl goes here',
     :listen_port          => 80,
     :admin_listen_address => '127.0.0.1',
     :admin_listen_port    => 6081,

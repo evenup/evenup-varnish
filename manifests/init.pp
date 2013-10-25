@@ -9,9 +9,9 @@
 #   String.  What version of varnish should be installed
 #   Default: latest
 #
-# [*vcl_content*]
-#   String.  The VCL file that should be installed.
-#   Default: Included generic vcl file
+# [*vcl_source*]
+#   String.  Source file for varnish config
+#   Default: undef
 #
 # [*listen_address*]
 #   String.  Address varnish should listen on
@@ -71,7 +71,7 @@
 #
 class varnish(
   $version              = 'latest',
-  $vcl_content          = template('varnish/varnish.vcl.erb'),
+  $vcl_source           = 'puppet:///modules/varnish/varnish.vcl',
   $listen_address       = '0.0.0.0',
   $listen_port          = 80,
   $admin_listen_address = '127.0.0.1',
@@ -89,7 +89,7 @@ class varnish(
   }
 
   class { 'varnish::config':
-    vcl_content           => $vcl_content,
+    vcl_source            => $vcl_source,
     listen_address        => $listen_address,
     listen_port           => $listen_port,
     admin_listen_address  => $admin_listen_address,
