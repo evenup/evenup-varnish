@@ -28,7 +28,7 @@ MEMLOCK=82000
 DAEMON_OPTS="-a <%= scope.lookupvar('listen_address') %>:<%= scope.lookupvar('listen_port') %> \
              -T <%= scope.lookupvar('admin_listen_address') %>:<%= scope.lookupvar('admin_listen_port') %> \
              -t <%= scope.lookupvar('ttl') %> \
-             -f /etc/varnish/default.vcl \
+             -f /etc/varnish/varnish.vcl \
              -S <%= scope.lookupvar('secret_file') %> \
              -s "malloc,<%= scope.lookupvar('storage_size') %>" \
              -w <%= scope.lookupvar('min_threads') %>,<%= scope.lookupvar('max_threads') %>,<%= scope.lookupvar('thread_timeout') %>"
