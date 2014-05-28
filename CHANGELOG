@@ -1,5 +1,7 @@
+20140528 - v0.1.1
+  Fix debian upstart script (grzegorzkurtyka)
 20140119 - v0.1.0
-  Debian/Ubuntu support
+  Debian/Ubuntu support (jeroenmoors)
   Source selection
 v0.0.1:
   Initial release
