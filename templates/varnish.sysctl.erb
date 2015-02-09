@@ -1,5 +1,18 @@
 # Managed by puppet - Do not modify!
 
+# Configuration file for varnish
+#
+# /etc/init.d/varnish expects the variables $DAEMON_OPTS, $NFILES and $MEMLOCK
+# to be set from this shell script fragment.
+#
+
+# Should we start varnishd at boot?  Set to "no" to disable.
+<% if scope.lookupvar('start') then %>
+START=yes
+<% else %>
+START=no
+<% end %>
+
 # Maximum number of open files (for ulimit -n)
 NFILES=131072
 
