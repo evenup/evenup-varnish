@@ -82,6 +82,7 @@ class varnish(
   $thread_timeout       = 120,
   $storage_size         = '100M',
   $ttl                  = 120,
+  $start                = true,
 ) {
 
   class { 'varnish::install':
@@ -100,6 +101,7 @@ class varnish(
     thread_timeout        => $thread_timeout,
     storage_size          => $storage_size,
     ttl                   => $ttl,
+    start                 => $start,
   }
   class { 'varnish::service': }
 

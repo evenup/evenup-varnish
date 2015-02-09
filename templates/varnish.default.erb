@@ -7,7 +7,7 @@
 #
 
 # Should we start varnishd at boot?  Set to "no" to disable.
-<% if scope.lookupvar('enable') then %>
+<% if scope.lookupvar('start') then %>
 START=yes
 <% else %>
 START=no

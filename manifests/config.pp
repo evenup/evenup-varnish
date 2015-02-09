@@ -25,6 +25,7 @@ class varnish::config (
   $thread_timeout,
   $storage_size,
   $ttl,
+  $start,
 ){
 
   # TODO - need to make varnish.d directory and populate with a define
