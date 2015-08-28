@@ -7,11 +7,8 @@
 #
 
 # Should we start varnishd at boot?  Set to "no" to disable.
-<% if scope.lookupvar('enable') then %>
 START=yes
-<% else %>
-START=no
-<% end %>
+
 
 # Maximum number of open files (for ulimit -n)
 NFILES=131072
